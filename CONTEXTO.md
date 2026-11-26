@@ -1,6 +1,6 @@
 # Prisma Motor — continuidad del desarrollo
 
-Última revisión: 2026-11-25. Prisma Motor no tiene repositorio Git local. La persona confirma que en Supabase de Prisma Motor están aplicadas las migraciones hasta `20261118000200_client_portal_payment_summary.sql` y que la prueba de pagos funcionó correctamente.
+Última revisión: 2026-11-26. Se preparó el repositorio Git local en la rama `main` para publicar el estado actual de Prisma Motor en `rosameza63/PrismaMotor`, repositorio público recién creado. La carpeta `supabase/.temp/` está excluida. El código quedó publicado en la rama `main` (commit inicial `364bd3e`). La persona confirma que en Supabase de Prisma Motor están aplicadas las migraciones hasta `20261118000200_client_portal_payment_summary.sql` y que la prueba de pagos funcionó correctamente.
 
 Este archivo conserva el contexto para continuar en otro chat sin depender del historial de conversación. Antes de modificar el proyecto, leer también `README.md` y revisar el código vigente.
 
@@ -44,7 +44,7 @@ La persona confirmó el 2026-11-24 que ambas migraciones están aplicadas en el 
 - El tablero financiero calcula margen bruto con pagos, costos de inventario y costo de mano de obra registrados. No incluye gastos generales, impuestos ni costos fijos; no presentarlo como utilidad neta.
 - El tablero del propietario conserva partes ilustrativas; confirmar qué datos son reales antes de ampliar reportes.
 - Los enlaces de cliente generados en `localhost` o `file://` son solo para pruebas locales; para clientes se necesita HTTPS público.
-- La carpeta no tenía repositorio Git cuando se revisó el 2026-11-19, así que no hay historial de commits local para reconstruir cambios.
+- El repositorio Git local se inicializó el 2026-11-26; el primer commit publicará una instantánea del estado actual, sin reconstruir cambios anteriores.
 
 ## Forma de retomar
 
@@ -53,3 +53,11 @@ Al empezar una sesión nueva, abrir la carpeta `C:\rmeza\PrismaMotor` como proye
 ## Siguiente paso comprobable
 
 La persona confirma que `20261125000100_fix_inventory_purchase_movement_sign.sql` ya estaba aplicada; `20261125000200_delete_work_order_bundle.sql` se aplicó en el proyecto Prisma Motor el 2026-11-25. La función quedó verificada. Siguiente paso: recargar la app local y probar el borrado desde el rol propietario solo con una orden creada para pruebas. No se eliminó ningún registro durante esta sesión. Las migraciones previas se aplicaron manualmente y Supabase CLI muestra vacío su historial remoto; no usar `db push` sin reconciliar primero ese historial. Después continuar la prueba general de extremo a extremo: usar una orden, aprobar cotización, asignar tareas con prerequisitos, iniciar/pausar/reanudar e informar bloqueo desde Mi Bahía, cargar foto de avance, terminar tareas, avanzar por control de calidad y entrega, y confirmar progreso/pagos en el portal.
+
+
+## Publicación en GitHub
+
+- Se creó https://github.com/rosameza63/PrismaMotor como repositorio público vacío con autorización expresa de la persona.
+- Está preparado el primer envío desde C:\rmeza\PrismaMotor; la subida del código aún está pendiente. Publicar el repositorio no despliega la app ni configura un backend de demostración.
+- Antes de habilitar pruebas públicas con usuarios externos, preparar un proyecto Supabase separado para demostración y revisar credenciales/redirecciones; no exponer ni reutilizar datos operativos en producción.
+- Siguiente paso inmediato: crear el primer commit y hacer push de main a GitHub. Después decidir y preparar el entorno público de pruebas.
