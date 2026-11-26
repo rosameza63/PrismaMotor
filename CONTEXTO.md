@@ -1,6 +1,6 @@
 # Prisma Motor — continuidad del desarrollo
 
-Última revisión: 2026-11-26. Se preparó el repositorio Git local en la rama `main` para publicar el estado actual de Prisma Motor en `rosameza63/PrismaMotor`, repositorio público recién creado. La carpeta `supabase/.temp/` está excluida. El código quedó publicado en la rama `main` (commit inicial `364bd3e`). La persona confirma que en Supabase de Prisma Motor están aplicadas las migraciones hasta `20261118000200_client_portal_payment_summary.sql` y que la prueba de pagos funcionó correctamente.
+Última revisión: 2026-11-26. El proyecto está publicado en el repositorio GitHub público `rosameza63/PrismaMotor`, rama `main`. La carpeta `supabase/.temp/` está excluida. La persona confirma que en Supabase de Prisma Motor están aplicadas las migraciones hasta `20261118000200_client_portal_payment_summary.sql` y que la prueba de pagos funcionó correctamente.
 
 Este archivo conserva el contexto para continuar en otro chat sin depender del historial de conversación. Antes de modificar el proyecto, leer también `README.md` y revisar el código vigente.
 
@@ -44,7 +44,7 @@ La persona confirmó el 2026-11-24 que ambas migraciones están aplicadas en el 
 - El tablero financiero calcula margen bruto con pagos, costos de inventario y costo de mano de obra registrados. No incluye gastos generales, impuestos ni costos fijos; no presentarlo como utilidad neta.
 - El tablero del propietario conserva partes ilustrativas; confirmar qué datos son reales antes de ampliar reportes.
 - Los enlaces de cliente generados en `localhost` o `file://` son solo para pruebas locales; para clientes se necesita HTTPS público.
-- El repositorio Git local se inicializó el 2026-11-26; el primer commit publicará una instantánea del estado actual, sin reconstruir cambios anteriores.
+- El repositorio Git local se inicializó y sincronizó con GitHub el 2026-11-26; el historial comienza con una instantánea del estado actual, sin reconstruir cambios anteriores.
 
 ## Forma de retomar
 
@@ -57,7 +57,7 @@ La persona confirma que `20261125000100_fix_inventory_purchase_movement_sign.sql
 
 ## Publicación en GitHub
 
-- Se creó https://github.com/rosameza63/PrismaMotor como repositorio público vacío con autorización expresa de la persona.
-- Está preparado el primer envío desde C:\rmeza\PrismaMotor; la subida del código aún está pendiente. Publicar el repositorio no despliega la app ni configura un backend de demostración.
-- Antes de habilitar pruebas públicas con usuarios externos, preparar un proyecto Supabase separado para demostración y revisar credenciales/redirecciones; no exponer ni reutilizar datos operativos en producción.
-- Siguiente paso inmediato: crear el primer commit y hacer push de main a GitHub. Después decidir y preparar el entorno público de pruebas.
+- Se creó `https://github.com/rosameza63/PrismaMotor` como repositorio público con autorización expresa de la persona. El código está publicado y sincronizado en `main`; commits actuales: `364bd3e` (código inicial) y `53ae62c` (documentación).
+- El repositorio contiene la PWA estática; todavía falta activar el hosting para que se pueda abrir por HTTPS.
+- La persona aclara el 2026-11-26 que toda la información existente en la base de datos de Prisma Motor es de pruebas y no hay información operativa. Por eso, para esta ronda pública se puede usar el Supabase actual de Prisma Motor; no hace falta crear otra base. La app usa una clave publishable en el cliente y las políticas RLS para datos autenticados; nunca publicar la `service_role`. Antes de iniciar sesión desde Pages, agregar la URL HTTPS de Pages en Supabase → Authentication → URL Configuration y en Redirect URLs.
+- Siguiente paso: activar GitHub Pages desde `main`/raíz y comprobar que la app carga por HTTPS. Luego registrar la URL de Pages en la configuración de autenticación de Supabase y crear/invitar cuentas de prueba para los roles que se vayan a probar. La aplicación solo permite iniciar sesión; la creación de cuentas de personal se hace desde la función protegida por el propietario activo.
