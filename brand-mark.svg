@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Isotipo Prisma Motor: prisma triangular y rayos de luz">
+  <g fill="none" stroke="#b99b55" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 104 46 16 82 104H10Z" stroke-width="3.2"/>
+    <path d="M46 16v51M10 104l36-37" stroke-width="1.8"/>
+    <path d="m48 67 66-50M48 67l66-36M48 67l66-22M48 67h66M48 67l66 14M48 67l66 28M48 67l66 42" stroke-width="1.65"/>
+  </g>
+  <path d="m48 61 2.2 4.2 4.8 1.8-4.8 1.8L48 74l-2.2-4.2L41 68l4.8-1.8L48 61Z" fill="#c6a15b"/>
+</svg>

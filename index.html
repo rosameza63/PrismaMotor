@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="description" content="Prisma Motor: gestión clara y cercana para tu taller.">
+  <title>Prisma Motor</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="logo-app-icon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="auth.css?v=4">
+  <link rel="stylesheet" href="roles.css?v=60">
+</head>
+<body>
+  <section class="auth-shell" id="authGate" aria-labelledby="authTitle">
+    <section class="auth-card">
+      <div class="auth-brand"><img src="logo-transparent.png" alt=""><span><strong>PRISMA</strong><small>MOTOR</small></span></div>
+      <p class="eyebrow">PORTAL DEL TALLER</p>
+      <h1 id="authTitle">Bienvenido</h1>
+      <p class="auth-intro">Ingresa con la cuenta que te asignó el propietario del taller.</p>
+      <form id="loginForm" class="auth-form">
+        <label for="loginEmail">Correo electrónico</label>
+        <input id="loginEmail" name="email" type="email" autocomplete="username" placeholder="nombre@correo.com" required>
+        <label for="loginPassword">Contraseña</label>
+        <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Tu contraseña" required>
+        <button class="button button-primary auth-submit" type="submit">Ingresar <span aria-hidden="true">→</span></button>
+      </form>
+      <form id="passwordSetupForm" class="auth-form" hidden>
+        <p class="auth-password-heading">Crea una contraseña para tu cuenta.</p>
+        <label for="newAccountPassword">Nueva contraseña</label>
+        <input id="newAccountPassword" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="Al menos 8 caracteres" required>
+        <label for="confirmAccountPassword">Confirma la contraseña</label>
+        <input id="confirmAccountPassword" name="confirm_password" type="password" autocomplete="new-password" minlength="8" placeholder="Escríbela otra vez" required>
+        <button class="button button-primary auth-submit" type="submit" id="saveAccountPassword">Guardar contraseña</button>
+      </form>
+      <p class="auth-feedback" id="authFeedback" role="status" aria-live="polite"></p>
+      <button class="auth-retry" id="authRetry" type="button" hidden>Intentar de nuevo</button>
+      <p class="auth-footnote">El acceso es privado para el equipo de Prisma Motor.</p>
+    </section>
+  </section>
+  <main class="client-quote-portal" id="clientQuotePortal" hidden>
+    <section class="client-quote-card">
+      <header class="client-quote-brand"><img src="logo-transparent.png" alt=""><span><strong>PRISMA</strong><small>MOTOR</small></span></header>
+      <div id="clientQuoteContent"><p class="empty-state">Cargando cotización…</p></div>
+    </section>
+  </main>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Prisma Motor, inicio">
+      <img src="logo-transparent.png" alt="">
+      <span><strong>PRISMA</strong><small>MOTOR</small></span>
+    </a>
+    <div class="prototype-note"><span class="live-dot"></span> Prototipo de interfaz</div>
+    <button class="profile-button" id="signOutButton" type="button" aria-label="Cerrar sesión"><span class="avatar" id="profileAvatar">PM</span><span class="profile-label" id="profileLabel">Cerrar sesión</span><span aria-hidden="true">↗</span></button>
+  </header>
+
+  <main class="page-shell" id="inicio">
+    <section class="page-heading">
+      <div><p class="eyebrow">GESTIÓN INTELIGENTE DEL TALLER</p><h1 id="pageTitle">Recepción</h1><p id="pageDescription">Recibe cada vehículo con claridad, evidencia y seguimiento.</p></div>
+      <button class="button button-primary" data-open-intake><span aria-hidden="true">＋</span> Recibir vehículo</button>
+    </section>
+
+    <p class="preview-label">VISTAS DE MUESTRA · PREVISUALIZAR CADA PERFIL</p>
+    <nav class="role-tabs" aria-label="Vistas de demostración">
+      <button class="role-tab active" data-role="reception">Recepción</button>
+      <button class="role-tab" data-role="technician">Técnico</button>
+      <button class="role-tab" data-role="owner">Propietario</button>
+      <button class="role-tab" data-role="customer">Cliente</button>
+    </nav>
+    <div id="screen" aria-live="polite"></div>
+  </main>
+
+  <footer class="site-footer">PRISMA MOTOR <span>·</span> Precisión y calidad. Tu vehículo, a tiempo y en buenas manos.</footer>
+
+  <dialog id="vehicleListDialog" class="dialog vehicle-list-dialog" aria-labelledby="vehicleListTitle">
+    <section class="vehicle-list-modal">
+      <header class="vehicle-list-header"><div><p class="eyebrow">RECEPCIÓN · DETALLE</p><h2 id="vehicleListTitle">Vehículos</h2><p id="vehicleListDescription"></p></div><button class="icon-button" type="button" data-close-vehicle-list aria-label="Cerrar lista">×</button></header>
+      <div id="vehicleListItems" class="vehicle-list-items"></div>
+      <p class="vehicle-list-sample" id="vehicleListNote"><span class="demo-indicator"></span> Datos de muestra para revisar la interfaz.</p>
+    </section>
+  </dialog>
+
+  <dialog id="orderDetailDialog" class="dialog order-detail-dialog" aria-labelledby="orderDetailTitle">
+    <section class="order-detail-modal">
+      <header class="vehicle-list-header"><div><p class="eyebrow">RECEPCIÓN · EXPEDIENTE DEL VEHÍCULO</p><h2 id="orderDetailTitle">Detalle de la orden</h2></div><button class="icon-button" type="button" data-close-order-detail aria-label="Cerrar detalle">×</button></header>
+      <div id="orderDetailContent" class="order-detail-content"><div class="empty-state">Cargando detalle desde Supabase…</div></div>
+    </section>
+  </dialog>
+
+  <dialog id="intakeDialog" class="dialog">
+    <form id="intakeForm">
+      <div class="dialog-heading"><div><p class="eyebrow">NUEVA ORDEN DE TRABAJO</p><h2>Recibir vehículo</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Cerrar">×</button></div>
+      <div class="intake-progress" aria-label="Progreso del registro"><span class="intake-progress-step active" data-intake-indicator="1"><b>1</b><small>Datos</small></span><i></i><span class="intake-progress-step" data-intake-indicator="2"><b>2</b><small>Inspección</small></span><i></i><span class="intake-progress-step" data-intake-indicator="3"><b>3</b><small>Confirmar</small></span></div>
+
+      <section class="intake-step" data-intake-step="1">
+        <div class="intake-step-heading"><h3>Cliente y vehículo</h3><p>Registra quién entrega el vehículo y sus datos principales.</p></div>
+        <div class="form-grid">
+          <label>Placa<input name="plate" placeholder="ABC-123" required maxlength="10" autocomplete="off"></label>
+          <label>Teléfono del cliente<input name="phone" type="tel" placeholder="300 000 0000" required autocomplete="tel"></label>
+          <label class="span-two">Nombre del cliente<input name="customer" placeholder="Nombre y apellido" required autocomplete="name"></label>
+          <label>Correo electrónico <small>Opcional</small><input name="email" type="email" placeholder="cliente@correo.com" autocomplete="email"></label>
+          <label>Kilometraje<input name="odometer" type="number" min="0" step="1" placeholder="45000" required></label>
+          <label>Marca<input name="make" placeholder="Ej. BMW" required></label>
+          <label>Modelo<input name="model" placeholder="Ej. X5" required></label>
+          <label>Año<input name="model_year" type="number" min="1900" max="2200" placeholder="2021"></label>
+          <label>Color <small>Opcional</small><input name="color" placeholder="Ej. Azul oscuro"></label>
+          <label class="span-two">Motivo de ingreso<textarea name="reason" rows="3" placeholder="Describe lo que solicita el cliente" required></textarea></label>
+        </div>
+        <div class="dialog-actions"><button class="button button-quiet" type="button" data-close-dialog>Cancelar</button><button class="button button-primary" type="button" data-intake-next="2">Continuar a inspección <span aria-hidden="true">→</span></button></div>
+      </section>
+
+      <section class="intake-step" data-intake-step="2" hidden>
+        <div class="intake-step-heading"><h3>Estado del vehículo</h3><p>Registra los elementos revisados, novedades y evidencia fotográfica.</p></div>
+        <div class="form-grid">
+          <label>Nivel de combustible<select name="fuel_level" required><option value="">Seleccionar nivel</option><option value="0">Vacío</option><option value="1">1/4</option><option value="2">1/2</option><option value="3">3/4</option><option value="4">Lleno</option></select></label>
+          <label>Estado de tapicería<select name="upholstery_condition"><option value="">Sin revisar</option><option value="good">Buen estado</option><option value="fair">Uso normal</option><option value="damaged">Con novedad</option></select></label>
+          <label>Llanta de repuesto<select name="spare_tire_present"><option value="">Sin revisar</option><option value="true">Presente</option><option value="false">No está</option></select></label>
+          <label>Herramientas<select name="tools_present"><option value="">Sin revisar</option><option value="true">Presentes</option><option value="false">No están</option></select></label>
+          <label>Radio / pantalla<select name="radio_present"><option value="">Sin revisar</option><option value="true">Presente</option><option value="false">No está</option></select></label>
+          <label>Luces<select name="lights"><option value="not_checked">Sin revisar</option><option value="ok">Funcionan</option><option value="issue">Con novedad</option></select></label>
+          <label>Llantas<select name="tires"><option value="not_checked">Sin revisar</option><option value="ok">En buen estado</option><option value="issue">Con novedad</option></select></label>
+          <label>Vidrios y espejos<select name="glass_mirrors"><option value="not_checked">Sin revisar</option><option value="ok">En buen estado</option><option value="issue">Con novedad</option></select></label>
+          <label class="span-two">Observaciones de inspección<textarea name="inspection_notes" rows="2" placeholder="Elementos entregados, novedades o detalles importantes"></textarea></label>
+        </div>
+        <section class="damage-editor"><div class="damage-editor-heading"><div><h4>Daños o novedades visibles</h4><p>Agrega una nota por zona del vehículo.</p></div><label class="no-damage-choice"><input type="checkbox" id="noVisibleDamage"> Sin daños visibles</label></div>
+          <div class="damage-entry-row"><label>Zona<select id="damageView"><option value="front">Frente</option><option value="rear">Parte trasera</option><option value="left">Lado izquierdo</option><option value="right">Lado derecho</option><option value="top">Techo</option></select></label><label>Tipo<select id="damageType"><option value="scratch">Rayón</option><option value="dent">Abolladura</option><option value="broken">Pieza rota</option><option value="other">Otro</option></select></label><label class="damage-note-field">Detalle<input id="damageNote" placeholder="Describe la novedad"></label><button type="button" class="button button-quiet damage-add" data-add-damage>＋ Agregar</button></div>
+          <div id="damageMarksList" class="damage-marks-list"></div>
+        </section>
+        <label class="file-drop"><span class="file-drop-icon" aria-hidden="true">＋</span><span><strong>Fotos del vehículo</strong><small>Selecciona hasta 8 fotos. Se optimizan antes de subirlas para ahorrar espacio sin perder detalle.</small><span id="photoSelection" class="file-selection">Sin fotos seleccionadas</span></span><input id="intakePhotos" name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple></label>
+        <section class="signature-section"><div><h4>Firma del cliente</h4><p>Firma dentro del recuadro para dejar constancia de la inspección.</p></div><canvas id="customerSignature" class="signature-canvas" aria-label="Área para dibujar la firma del cliente"></canvas><p class="signature-message" id="signatureMessage" role="status" aria-live="polite"></p><div class="signature-actions"><small>Firma con el dedo o el mouse</small><button class="subtle-link" type="button" data-clear-signature>Limpiar firma</button></div></section>
+        <div class="dialog-actions"><button class="button button-quiet" type="button" data-intake-back="1">Volver</button><button class="button button-primary" type="button" data-intake-next="3">Revisar y confirmar <span aria-hidden="true">→</span></button></div>
+      </section>
+
+      <section class="intake-step" data-intake-step="3" hidden>
+        <div class="intake-step-heading"><h3>Confirma la recepción</h3><p>Revisa el resumen antes de guardar la orden en Supabase.</p></div>
+        <div id="intakeSummary" class="intake-summary"></div>
+        <div class="intake-note"><span>ⓘ</span><p>La firma y las fotos se guardarán en el almacenamiento privado del taller, asociadas a esta orden.</p></div>
+        <p class="intake-offline-note">Si se pierde internet, la recepción queda guardada temporalmente en este dispositivo y se sincroniza al recuperar la conexión.</p>
+        <p class="auth-feedback intake-save-message" id="intakeSaveMessage" role="status" aria-live="polite"></p>
+        <div class="dialog-actions"><button class="button button-quiet" type="button" data-intake-back="2">Volver a inspección</button><button class="button button-primary" type="submit" id="saveIntakeButton">Guardar recepción <span aria-hidden="true">✓</span></button></div>
+      </section>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=1"></script>
+  <script src="app.js?v=66"></script>
+</body>
+</html>

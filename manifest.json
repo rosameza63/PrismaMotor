@@ -1,0 +1,13 @@
+{
+  "name": "Prisma Motor",
+  "short_name": "Prisma Motor",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e3a8a",
+  "description": "Gestión clara y cercana para el taller Prisma Motor.",
+  "icons": [
+    { "src": "logo-app-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
