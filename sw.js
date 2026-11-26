@@ -1,5 +1,5 @@
-const CACHE = 'prisma-motor-shell-v91';
-const FILES = ['./', './index.html', './styles.css?v=5', './auth.css?v=4', './roles.css?v=60', './app.js?v=66', './supabase-config.js?v=1', './manifest.json', './logo-transparent.png', './logo-app-icon.png', './assets/vehicle-demo.png'];
+const CACHE = 'prisma-motor-shell-v92';
+const FILES = ['./', './index.html', './styles.css?v=5', './auth.css?v=4', './roles.css?v=60', './app.js?v=67', './supabase-config.js?v=1', './manifest.json', './logo-transparent.png', './logo-app-icon.png', './assets/vehicle-demo.png'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)).then(() => self.skipWaiting()));

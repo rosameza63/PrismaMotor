@@ -5,7 +5,7 @@ PWA para gestionar un taller de mecánica y pintura. Este proyecto está separad
 ## Estado actual
 
 - Inicio de sesión y perfiles conectados con Supabase.
-- Recepción guarda cliente, vehículo, orden, checklist, novedades, firma y fotos privadas; reduce las fotos grandes antes de subirlas.
+- Recepción guarda cliente, vehículo, orden, checklist, novedades, firma y hasta ocho fotos privadas; en celular puedes tomar una foto, volver a tocar el control y seguir agregando. Las fotos se optimizan antes de subirlas.
 - Los registros de recepción pueden quedar en una cola local cuando no hay conexión y sincronizarse al volver internet.
 - La agenda clasifica las órdenes por estado. Desde el detalle se consultan los datos y se actualiza el historial del flujo.
 - La cotización registra conceptos comerciales, incluidos repuestos y pintura/materiales. En una sección aparte, el asesor o propietario crea actividades operativas, asigna oficio y técnico, y define prerequisitos independientes del orden de registro.

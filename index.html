@@ -126,7 +126,7 @@
           <div class="damage-entry-row"><label>Zona<select id="damageView"><option value="front">Frente</option><option value="rear">Parte trasera</option><option value="left">Lado izquierdo</option><option value="right">Lado derecho</option><option value="top">Techo</option></select></label><label>Tipo<select id="damageType"><option value="scratch">Rayón</option><option value="dent">Abolladura</option><option value="broken">Pieza rota</option><option value="other">Otro</option></select></label><label class="damage-note-field">Detalle<input id="damageNote" placeholder="Describe la novedad"></label><button type="button" class="button button-quiet damage-add" data-add-damage>＋ Agregar</button></div>
           <div id="damageMarksList" class="damage-marks-list"></div>
         </section>
-        <label class="file-drop"><span class="file-drop-icon" aria-hidden="true">＋</span><span><strong>Fotos del vehículo</strong><small>Selecciona hasta 8 fotos. Se optimizan antes de subirlas para ahorrar espacio sin perder detalle.</small><span id="photoSelection" class="file-selection">Sin fotos seleccionadas</span></span><input id="intakePhotos" name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple></label>
+        <label class="file-drop"><span class="file-drop-icon" aria-hidden="true">＋</span><span><strong>Fotos del vehículo</strong><small>Agrega hasta 8 fotos. Si usas la cámara, vuelve a tocar aquí para tomar la siguiente; se optimizan antes de subirlas.</small><span id="photoSelection" class="file-selection">Sin fotos seleccionadas</span></span><input id="intakePhotos" name="photos" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" multiple></label>
         <section class="signature-section"><div><h4>Firma del cliente</h4><p>Firma dentro del recuadro para dejar constancia de la inspección.</p></div><canvas id="customerSignature" class="signature-canvas" aria-label="Área para dibujar la firma del cliente"></canvas><p class="signature-message" id="signatureMessage" role="status" aria-live="polite"></p><div class="signature-actions"><small>Firma con el dedo o el mouse</small><button class="subtle-link" type="button" data-clear-signature>Limpiar firma</button></div></section>
         <div class="dialog-actions"><button class="button button-quiet" type="button" data-intake-back="1">Volver</button><button class="button button-primary" type="button" data-intake-next="3">Revisar y confirmar <span aria-hidden="true">→</span></button></div>
       </section>
@@ -144,6 +144,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=1"></script>
-  <script src="app.js?v=66"></script>
+  <script src="app.js?v=67"></script>
 </body>
 </html>

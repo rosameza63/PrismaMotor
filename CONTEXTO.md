@@ -11,7 +11,7 @@ PWA para administrar un taller de mecánica y pintura. El frontend está hecho c
 ## Avance que ya está en el código
 
 - Inicio de sesión con perfiles y vistas según rol.
-- Recepción de vehículos con checklist, novedades, firma y fotos privadas; permite guardar recepciones sin conexión y sincronizarlas después.
+- Recepción de vehículos con checklist, novedades, firma y hasta ocho fotos privadas; en móvil se pueden agregar fotos tomando una por vez y reabriendo el control de cámara. Las recepciones pueden guardarse sin conexión y sincronizarse después.
 - Agenda y flujo de órdenes desde recepción y diagnóstico hasta entrega, con historial de estados.
 - Cotizaciones por conceptos en COP, vigencia e impuestos; el cliente puede aprobar o rechazar cada concepto mediante un enlace privado.
 - La decisión del cliente controla el estado de la orden. Las actividades operativas son tareas distintas de los conceptos comerciales.
@@ -60,4 +60,4 @@ La persona confirma que `20261125000100_fix_inventory_purchase_movement_sign.sql
 - Se creó `https://github.com/rosameza63/PrismaMotor` como repositorio público con autorización expresa de la persona. El código está publicado y sincronizado en `main`; último commit de documentación: `67c7a59`.
 - GitHub Pages está activado para `main`/raíz. La app ya se comprobó en `https://rosameza63.github.io/PrismaMotor/` y muestra el inicio de sesión por HTTPS.
 - La persona aclara el 2026-11-26 que toda la información existente en la base de datos de Prisma Motor es de pruebas y no hay información operativa. Por eso, para esta ronda pública se puede usar el Supabase actual de Prisma Motor; no hace falta crear otra base. La app usa una clave publishable en el cliente y las políticas RLS para datos autenticados; nunca publicar la `service_role`. En Supabase → Authentication → URL Configuration se agregó `https://rosameza63.github.io/PrismaMotor/**` a Redirect URLs y Site URL se cambió a `https://rosameza63.github.io/PrismaMotor/`; se conservó `http://localhost:4173/**` para trabajo local. Supabase confirmó ambos guardados.
-- Siguiente paso: iniciar sesión en la app publicada, comprobar los flujos de invitación y acceso, y preparar cuentas de prueba para los roles necesarios. La aplicación solo permite iniciar sesión; el propietario activo invita técnicos desde la app.
+- La recepción ahora acumula capturas de cámara en el formulario (máximo ocho) en lugar de reemplazar la selección anterior. Cambio local actualizado en `app.js`, `index.html` y caché PWA; publicar el commit para que llegue al sitio Pages. Después, probar en móvil una recepción con varias fotos. La aplicación solo permite iniciar sesión; el propietario activo invita técnicos desde la app.

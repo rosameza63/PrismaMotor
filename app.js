@@ -2,6 +2,7 @@
   const initialAuthLinkType = new URLSearchParams(location.hash.slice(1)).get('type')
     || new URLSearchParams(location.search).get('type');
   let passwordSetupMode = ['invite', 'recovery'].includes(initialAuthLinkType);
+  let intakePhotoFiles = [];
   const supabaseConfig = window.PRISMA_SUPABASE_CONFIG;
   const supabaseClient = window.supabase?.createClient && supabaseConfig?.url && supabaseConfig?.publishableKey
     ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.publishableKey)
@@ -1169,7 +1170,7 @@
   function renderIntakeSummary() {
     const values = new FormData(document.getElementById('intakeForm'));
     const modelYear = values.get('model_year') ? ` ${values.get('model_year')}` : '';
-    const photos = document.getElementById('intakePhotos').files.length;
+    const photos = intakePhotoFiles.length;
     document.getElementById('intakeSummary').innerHTML = `<div class="intake-summary-row"><span>Cliente</span><strong>${escapeHtml(values.get('customer'))} · ${escapeHtml(values.get('phone'))}</strong></div>
       <div class="intake-summary-row"><span>Vehículo</span><strong>${escapeHtml(values.get('plate').toUpperCase())} · ${escapeHtml(values.get('make'))} ${escapeHtml(values.get('model'))}${escapeHtml(modelYear)}</strong></div>
       <div class="intake-summary-row"><span>Kilometraje</span><strong>${new Intl.NumberFormat('es-CO').format(Number(values.get('odometer') || 0))} km</strong></div>
@@ -1210,6 +1211,7 @@
 
   function resetIntakeFlow() {
     document.getElementById('intakeForm').reset();
+    intakePhotoFiles = [];
     ['damageView', 'damageType', 'damageNote'].forEach(id => { document.getElementById(id).disabled = false; });
     document.querySelector('[data-add-damage]').disabled = false;
     state.intakeDamageMarks = [];
@@ -2322,11 +2324,19 @@
 
   document.getElementById('intakePhotos').addEventListener('change', event => {
     const files = [...event.target.files];
-    document.getElementById('photoSelection').textContent = files.length ? `${files.length} ${files.length === 1 ? 'foto lista' : 'fotos listas'}` : 'Sin fotos seleccionadas';
-    if (files.length > 8 || files.some(file => file.size > 15 * 1024 * 1024)) {
-      document.getElementById('photoSelection').textContent = 'Máximo 8 fotos, de hasta 15 MB cada una.';
-      event.target.value = '';
+    if (!files.length) return;
+    const allowedTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
+    if (intakePhotoFiles.length + files.length > 8) {
+      document.getElementById('photoSelection').textContent = 'Máximo 8 fotos. Ya tienes el límite completo.';
+    } else if (files.some(file => !allowedTypes.has(file.type) || file.size > 15 * 1024 * 1024)) {
+      document.getElementById('photoSelection').textContent = 'Usa fotos JPG, PNG o WEBP de máximo 15 MB cada una.';
+    } else {
+      intakePhotoFiles.push(...files);
+      const count = intakePhotoFiles.length;
+      document.getElementById('photoSelection').textContent = `${count} ${count === 1 ? 'foto agregada' : 'fotos agregadas'} · vuelve a tocar para añadir otra`;
     }
+    // Clear the native picker so the same camera/file control can be opened again.
+    event.target.value = '';
   });
 
   document.getElementById('noVisibleDamage').addEventListener('change', event => {
@@ -2485,7 +2495,7 @@
     const vehicleId = crypto.randomUUID();
     const userId = currentSession.user.id;
     const media = [];
-    const photos = [...document.getElementById('intakePhotos').files];
+    const photos = [...intakePhotoFiles];
     const photosAllowed = new Set(['image/jpeg', 'image/png', 'image/webp']);
     if (photos.length > 8 || photos.some(file => !photosAllowed.has(file.type) || file.size > 15 * 1024 * 1024)) {
       throw new Error('Selecciona hasta 8 fotos JPG, PNG o WEBP de máximo 15 MB cada una.');
@@ -2780,5 +2790,5 @@
   const publicQuoteToken = new URLSearchParams(location.search).get('quote') || new URLSearchParams(location.hash.slice(1)).get('quote');
   if (publicQuoteToken) loadClientQuotePortal(publicQuoteToken);
   else initializeAuth();
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=74'));
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=75'));
 })();
