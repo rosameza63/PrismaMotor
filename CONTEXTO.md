@@ -57,7 +57,7 @@ La persona confirma que `20261125000100_fix_inventory_purchase_movement_sign.sql
 
 ## Publicación en GitHub
 
-- Se creó `https://github.com/rosameza63/PrismaMotor` como repositorio público con autorización expresa de la persona. El código está publicado y sincronizado en `main`; último commit de publicación: `75e4577` (documentación del despliegue).
+- Se creó `https://github.com/rosameza63/PrismaMotor` como repositorio público con autorización expresa de la persona. El código está publicado y sincronizado en `main`; último commit de documentación: `67c7a59`.
 - GitHub Pages está activado para `main`/raíz. La app ya se comprobó en `https://rosameza63.github.io/PrismaMotor/` y muestra el inicio de sesión por HTTPS.
 - La persona aclara el 2026-11-26 que toda la información existente en la base de datos de Prisma Motor es de pruebas y no hay información operativa. Por eso, para esta ronda pública se puede usar el Supabase actual de Prisma Motor; no hace falta crear otra base. La app usa una clave publishable en el cliente y las políticas RLS para datos autenticados; nunca publicar la `service_role`. En Supabase → Authentication → URL Configuration se agregó `https://rosameza63.github.io/PrismaMotor/**` a Redirect URLs y Site URL se cambió a `https://rosameza63.github.io/PrismaMotor/`; se conservó `http://localhost:4173/**` para trabajo local. Supabase confirmó ambos guardados.
 - Siguiente paso: iniciar sesión en la app publicada, comprobar los flujos de invitación y acceso, y preparar cuentas de prueba para los roles necesarios. La aplicación solo permite iniciar sesión; el propietario activo invita técnicos desde la app.
